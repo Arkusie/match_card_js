@@ -15,7 +15,7 @@ body {
   width: 700px;
   height: 100vh;
   max-height: 540px;
-  min-height: 300px;
+  min-height: 400px;
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
@@ -37,12 +37,12 @@ body {
   transition: transform 0.2s;
 }
 .card-component:hover {
-  /* animation: swing 0.5s ease; */
+  cursor: pointer;
 }
 
 .card-component:active {
   transform: scale(0.97);
-  transition: 100ms linear;
+  transition: 50ms linear;
 }
 /* theres no space between class names  */
 /* cause the 2 classes belong to the same element */
@@ -55,6 +55,7 @@ body {
   background-color: rgb(230, 89, 89);
   border-bottom: 5px solid rgb(184, 73, 97);
   transition: 150ms linear;
+  animation: swing 0.3s ease;
 }
 
 .front-face,
@@ -74,6 +75,9 @@ body {
 
 .front-face {
   padding: 35%;
+  background-color: rgb(236, 255, 128);
+  border-bottom: none;
+  border-top: 5px solid rgb(255, 186, 122);
   transform: rotateY(180deg);
 }
 
