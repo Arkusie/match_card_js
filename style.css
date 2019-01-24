@@ -13,43 +13,68 @@ body {
 .container-game {
   margin: auto;
   width: 700px;
-  height: 540px;
+  height: 100vh;
+  max-height: 540px;
+  min-height: 300px;
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
+  background-color: rgb(255, 205, 176);
   border: 4px solid rgb(255, 187, 148);
   border-radius: 30px;
+  /* adding 3d effect: perspective in container and transform style to element */
+  perspective: 1000px;
 }
 
 .card-component {
   width: calc(25% - 10px);
-  height: calc(33.33%-10px);
+  height: auto;
   margin: 5px;
   position: relative;
-
-  transition: 100ms linear;
+  transition: 50ms linear;
+  /* transform */
+  transform-style: preserve-3d;
+  transition: transform 0.2s;
+}
+.card-component:hover {
+  /* animation: swing 0.5s ease; */
 }
 
 .card-component:active {
   transform: scale(0.97);
   transition: 100ms linear;
 }
+/* theres no space between class names  */
+/* cause the 2 classes belong to the same element */
+.card-component.toggle-flip {
+  transform: rotateY(180deg);
+  /* transform: scale(0.2); */
+}
+
 .back-face:hover {
   background-color: rgb(230, 89, 89);
   border-bottom: 5px solid rgb(184, 73, 97);
-  transition: 100ms linear;
-  animation: swing 1s ease;
+  transition: 150ms linear;
 }
 
 .front-face,
 .back-face {
   width: 100%;
-  height: 100%;
-  padding: 30px;
+  height: auto;
+  padding: 15%;
   border-radius: 30px;
   border-bottom: 5px solid rgb(73, 161, 184);
   background-color: rgb(109, 177, 255);
   position: absolute;
+  transition: 50ms linear;
+  /* every html element has a backface(mirrored image of itself?) set to visible.
+  It needs to be hidden ? it still works when i remove it, hmm */
+  backface-visibility: hidden;
+}
+
+.front-face {
+  padding: 35%;
+  transform: rotateY(180deg);
 }
 
 @keyframes swing {

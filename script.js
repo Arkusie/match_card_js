@@ -1,38 +1,42 @@
-// let i = 0;
-// let img = [];
-// const time = 2000;
-// let theIMG;
+const selectCards = document.querySelectorAll(".card-component");
 
-// //img list
-// img[0] = "1.jpg";
-// img[1] = "2.jpg";
-// img[2] = "3.jpg";
+//if first or second card was flipped
+let isFlipped = false;
+let firstCard, secondCard;
+//add event listener to each card
+function flipCard() {
+  // 'this' represents the element that started the listenerEvent - a card
 
-// //change img
-// function changeImg() {
-//   let theIMG = (document.getElementById("slide").src = "images/" + img[i]);
-//   if (i < img.length - 1) {
-//     i++;
-//   } else {
-//     i = 0;
-//   }
-//   setTimeout("changeImg()", time);
-// }
-// changeImg(); 1234
+  // console.log(this);
+  this.classList.add("toggle-flip");
 
-let iconQuantity = 18;
-let iconsArray = [];
+  if (!isFlipped) {
+    // first card clicked
+    isFlipped = true;
+    firstCard = this; // a card that was clicked
+    // console.log(isFlipped, firstCard);
+  } else {
+    //second click
+    isFlipped = false; // means player is clicking second card
+    secondCard = this;
+    console.log({ firstCard, secondCard }); //got both cards. time to check for match.
+    // checking for match
+    console.log(firstCard.dataset.match);
+    console.log(secondCard.dataset.match);
 
-fillArray = () => {
-  for (i = 1; i < iconQuantity + 1; i++) {
-    iconsArray.push(i);
+    if (firstCard.dataset.match === secondCard.dataset.match) {
+      //remove listeners to avoid them being clicked again
+      firstCard.removeEventListener("click", flipCard);
+      secondCard.removeEventListener("click", flipCard);
+    } else {
+      // flip back cards if its not a match by removing toggle-flip class
+      //set timeut to see second click
+      setTimeout(() => {
+        firstCard.classList.remove("toggle-flip");
+        secondCard.classList.remove("toggle-flip");
+      }, 900);
+    }
+    console.log("listeners removed from items already clicked");
   }
-};
-//fill starting array with numbers of icons provided
-fillArray(iconQuantity);
-console.log(iconsArray);
-//randomize array and pick 6 randomized icons
-randomizeArray = arr => arr.sort(() => Math.random() - 0.5);
-let randomized = randomizeArray(iconsArray).slice(0, 6);
-console.log(iconsArray);
-console.log(`random picked icons: ${randomized}`);
+}
+selectCards.forEach(card => card.addEventListener("click", flipCard));
