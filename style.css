@@ -75,9 +75,10 @@ body {
 
 .front-face {
   padding: 35%;
-  background-color: rgb(236, 255, 128);
+  background-color: rgb(252, 242, 102);
   border-bottom: none;
   border-top: 5px solid rgb(255, 186, 122);
+  border-right: 5px solid rgb(255, 186, 122);
   transform: rotateY(180deg);
 }
 

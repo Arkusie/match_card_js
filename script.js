@@ -5,7 +5,15 @@ selectCards.forEach(card => card.addEventListener("click", flipCard));
 let isFlipped = false;
 let firstCard, secondCard;
 
+//lock board for the time of flipping
+let lockBoard = false;
+
 function flipCard() {
+  if (lockBoard) return;
+  //avoidance double click of the same card ?
+  // if selected card matches firstCard that is not yet determined
+  // then it will return from the function ?
+  if (this === firstCard) return;
   // 'this' represents the element that started the listenerEvent - a card
   // console.log(this);
   this.classList.add("toggle-flip");
@@ -31,12 +39,8 @@ function flipCard() {
 /*ternary operator(operator waronkowy, can be used below) */
 // checks for card match
 function verifyCardMatch() {
-  if (firstCard.dataset.match === secondCard.dataset.match) {
-    //remove listeners to avoid them being clicked again
-    disableCardListeners();
-  } else {
-    unflip();
-  }
+  let cardsMatched = firstCard.dataset.match === secondCard.dataset.match;
+  cardsMatched ? disableCardListeners() : unflip();
 }
 
 function disableCardListeners() {
@@ -45,10 +49,13 @@ function disableCardListeners() {
 }
 
 function unflip() {
+  //unlock board after cards are flipped
+  lockBoard = true;
   // flip back cards if its not a match by removing toggle-flip class
   //set timeut to see second click
   setTimeout(() => {
     firstCard.classList.remove("toggle-flip");
     secondCard.classList.remove("toggle-flip");
+    lockBoard = false;
   }, 500);
 }
