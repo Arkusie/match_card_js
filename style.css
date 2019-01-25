@@ -15,7 +15,6 @@ body {
   width: 700px;
   height: 100vh;
   max-height: 540px;
-  min-height: 400px;
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
@@ -45,7 +44,7 @@ body {
   transition: 50ms linear;
 }
 /* theres no space between class names  */
-/* cause the 2 classes belong to the same element */
+/* cause the 2 classes belong to the same element, need to read more about it */
 .card-component.toggle-flip {
   transform: rotateY(180deg);
   /* transform: scale(0.2); */
