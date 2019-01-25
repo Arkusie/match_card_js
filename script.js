@@ -11,7 +11,7 @@ let clickCounter = 0;
 let lockBoard = false;
 
 /* ----------assign random icons to display---------- */
-let iconsQuantity = 18; //numbers of icon in the folder
+let iconsQuantity = 36; //numbers of icon in the folder => randomly choose 6
 let iconsArray = [];
 fillArray = () => {
   for (i = 1; i < iconsQuantity + 1; i++) {
@@ -27,17 +27,19 @@ let randomized = randomizeArray(iconsArray).slice(0, 6);
 //double the randomized array and assign to html src
 let gameIconsArray = randomized;
 gameIconsArray = gameIconsArray.concat(randomized);
-// randomize again since theres a pattern after concat
+// randomize again since theres a pattern after concat => no need cause of shuffle() functon at the bottom
 // randomizeArray(gameIconsArray);
 // console.log(gameIconsArray);
 function assignIconsToBoard() {
+  let j = 0; // the 2nd card element
   for (i = 0; i < 12; i++) {
-    let j = 0; // the card element
     let iconID = gameIconsArray[i];
     let card1 = document.getElementsByClassName("front-face")[j];
     j++;
     card1.src = "images/" + iconID + ".png";
     let card2 = document.getElementsByClassName("front-face")[j];
+    j++;
+    console.log(j);
     card2.src = "images/" + iconID + ".png";
   }
 }
@@ -70,7 +72,7 @@ function flipCard() {
     console.log(firstCard.dataset.match);
     console.log(secondCard.dataset.match);
 
-    console.log("listeners removed from items already clicked");
+    // console.log("listeners removed from items already clicked");
     verifyCardMatch();
   }
 }
