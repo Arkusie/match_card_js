@@ -9,9 +9,24 @@
 }
 /* 1 vh unit corresponds to 1% of the viewPort height */
 body {
-  background-color: rgb(241, 181, 141);
+  /* background-color: #f1b58d; */
+  background: linear-gradient(45deg, #e6884e, #b1c95b, #67b477, #d3dd46);
+  background-size: 400% 400%;
+  animation: Gradient 15s ease infinite;
   height: 100vh;
   display: flex;
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 #container {
@@ -73,7 +88,7 @@ body {
   padding: 15%;
   border-radius: 30px;
   border-bottom: 5px solid rgb(73, 161, 184);
-  background-color: rgb(109, 177, 255);
+  background-color: rgb(98, 164, 238);
   /* position: absolute; */
   transition: 50ms linear;
   /* every html element has a backface(mirrored image of itself?) set to visible.
@@ -100,7 +115,7 @@ body {
 #scoreTime {
   margin: 0 auto;
   display: inline-block;
-  width: 40%;
+  width: 48%;
   height: 40px;
   padding: 8px 0;
   text-align: center;

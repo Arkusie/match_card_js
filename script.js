@@ -1,14 +1,25 @@
 const selectCards = document.querySelectorAll(".card-component");
 const selectScoreDiv = document.getElementById("scoreDiv");
 const selectResetButton = document.getElementById("resetButton");
+const selectTimerDiv = document.getElementById("scoreTime");
 selectResetButton.addEventListener("click", gameRestarter);
 
+let seconds = 0;
+// let startCounter = false;
+// let startCounter = setInterval(incrementSeconds, 1000);
+// function incrementSeconds() {
+//   seconds += 1;
+//   selectTimerDiv.innerHTML = seconds + "s";
+// }
+
 function gameRestarter() {
+  // clearInterval(incrementSeconds);
   clickCounter = 0;
   selectScoreDiv.innerHTML = clickCounter;
   selectCards.forEach(card => card.addEventListener("click", flipCard));
   selectCards.forEach(card => card.classList.remove("toggle-flip"));
 
+  assignIconsToBoard();
   shuffleCards();
 }
 //add event listener to each card
@@ -33,23 +44,20 @@ fillArray = () => {
 fillArray(iconsArray);
 // console.log(iconsArray);
 //randomize
-randomizeArray = arr => arr.sort(() => Math.random() - 0.5);
-let randomized = randomizeArray(iconsArray).slice(0, 6);
-
-//double the randomized array and assign to html src
-let gameIconsArray = randomized;
-gameIconsArray = gameIconsArray.concat(randomized);
-// randomize again since theres a pattern after concat => no need cause of shuffle() functon at the bottom
-// randomizeArray(gameIconsArray);
-// console.log(gameIconsArray);
 function assignIconsToBoard() {
+  randomizeArray = arr => arr.sort(() => Math.random() - 0.5);
+  let randomized = randomizeArray(iconsArray).slice(0, 6);
+  //double the randomized array and assign to html src
+  let gameIconsArray = randomized;
+  gameIconsArray = gameIconsArray.concat(randomized);
+  // randomize again since theres a pattern after concat => no need cause of shuffle() functon at the bottom
+  // randomizeArray(gameIconsArray);
   let j = 0; // the 2nd card element
-  for (i = 0; i < 12; i++) {
+  for (i = 0; i < 6; i++) {
     let iconID = gameIconsArray[i];
     let card1 = document.getElementsByClassName("front-face")[j];
     card1.src = "images/" + iconID + ".png";
     j++;
-
     let card2 = document.getElementsByClassName("front-face")[j];
     card2.src = "images/" + iconID + ".png";
     j++;
