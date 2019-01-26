@@ -1,4 +1,16 @@
 const selectCards = document.querySelectorAll(".card-component");
+const selectScoreDiv = document.getElementById("scoreDiv");
+const selectResetButton = document.getElementById("resetButton");
+selectResetButton.addEventListener("click", gameRestarter);
+
+function gameRestarter() {
+  clickCounter = 0;
+  selectScoreDiv.innerHTML = clickCounter;
+  selectCards.forEach(card => card.addEventListener("click", flipCard));
+  selectCards.forEach(card => card.classList.remove("toggle-flip"));
+
+  shuffleCards();
+}
 //add event listener to each card
 selectCards.forEach(card => card.addEventListener("click", flipCard));
 shuffleCards();
@@ -35,12 +47,12 @@ function assignIconsToBoard() {
   for (i = 0; i < 12; i++) {
     let iconID = gameIconsArray[i];
     let card1 = document.getElementsByClassName("front-face")[j];
-    j++;
     card1.src = "images/" + iconID + ".png";
-    let card2 = document.getElementsByClassName("front-face")[j];
     j++;
-    console.log(j);
+
+    let card2 = document.getElementsByClassName("front-face")[j];
     card2.src = "images/" + iconID + ".png";
+    j++;
   }
 }
 assignIconsToBoard();
@@ -58,12 +70,14 @@ function flipCard() {
   //if first or second card was flipped
   if (!isFlipped) {
     clickCounter++;
+    selectScoreDiv.innerHTML = clickCounter;
     // first card clicked
     isFlipped = true;
     firstCard = this; // a card that was clicked
     // console.log(isFlipped, firstCard);
   } else {
     clickCounter++;
+    selectScoreDiv.innerHTML = clickCounter;
     //second click
     // isFlipped = false; // means player is clicking second card
     secondCard = this;
@@ -87,8 +101,6 @@ function verifyCardMatch() {
     alert(`Bravo, U won in ${clickCounter} Clicks!`);
     matchCounter = 0;
     clickCounter = 0;
-    let selectCards = document.querySelectorAll(".card-component");
-    selectCards.classList.toggle("toggle-flip");
   }
 }
 
