@@ -5,15 +5,16 @@ const selectTimerDiv = document.getElementById("scoreTime");
 selectResetButton.addEventListener("click", gameRestarter);
 
 let seconds = 0;
-// let startCounter = false;
-// let startCounter = setInterval(incrementSeconds, 1000);
-// function incrementSeconds() {
-//   seconds += 1;
-//   selectTimerDiv.innerHTML = seconds + "s";
-// }
+let startCounter;
+
+function incrementSeconds() {
+  seconds += 1;
+  selectTimerDiv.innerHTML = seconds + "s";
+}
 
 function gameRestarter() {
-  // clearInterval(incrementSeconds);
+  // clearInterval(startCounter);
+  startCounter = setInterval(incrementSeconds, 1000);
   clickCounter = 0;
   selectScoreDiv.innerHTML = clickCounter;
   selectCards.forEach(card => card.addEventListener("click", flipCard));
@@ -67,6 +68,7 @@ assignIconsToBoard();
 /* -------------------------------------------------- */
 
 function flipCard() {
+  console.log("sdasdsa");
   if (lockBoard) return;
   //avoidance double click of the same card ?
   // if selected card matches firstCard that is not yet determined

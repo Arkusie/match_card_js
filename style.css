@@ -34,7 +34,7 @@ body {
   margin: auto;
 }
 
-.container-game {
+#container-game {
   margin: auto;
   /* width: 700px;
   height: 100vh;
@@ -106,11 +106,19 @@ body {
   position: absolute;
 }
 
+#diffBoard {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 50%;
+}
+
 #scoreBoard {
   margin: 0 auto;
   margin-top: 20px;
   width: 90%;
 }
+#easyDiv,
+#hardDiv,
 #scoreDiv,
 #scoreTime {
   margin: 0 auto;
@@ -137,12 +145,14 @@ body {
   border: 2px solid rgb(255, 206, 188);
   border-radius: 20px;
 }
-
+#easyDiv:active,
+#hardDiv:active,
 #resetButton:active {
   transform: scale(0.95);
   transition: 50ms linear;
 }
-
+#easyDiv:hover,
+#hardDiv:hover,
 #resetButton:hover {
   background-color: rgb(230, 89, 89);
   border: 2px solid rgb(184, 73, 97);
