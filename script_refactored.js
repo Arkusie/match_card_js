@@ -1,20 +1,34 @@
 // default game values;
-let cardsQuantity = 12;
-let iconsQUantity = 36;
+let cardsQuantity;
+let iconsQUantity = 36; // amount of icons in the folder
 let iconsArray = [];
-let dataMatch = 1;
-$easyGameButton = document.getElementById("easyDiv").addEventListener("click", setEasyDifficulty);
-$hardcoreGameButton = document.getElementById("hardDiv").addEventListener("click", setHardDifficulty);
+let randomziedGameArray = [];
+let firstCard, secondCard;
+let isFlipped = false;
+let lockBoard = false;
+let matchCounter = 0;
+let clickCounter = 0;
 
-$containerGameDiv = document.getElementById("container-game");
+const $easyGameButton = document.getElementById("easyDiv").addEventListener("click", setEasyDifficulty);
+const $hardcoreGameButton = document.getElementById("hardDiv").addEventListener("click", setHardDifficulty);
+const $containerGameDiv = document.getElementById("container-game");
+// const $selectResetButton = document.getElementById("resetButton");
+const $selectScoreDiv = document.getElementById("scoreDiv");
+// $selectResetButton.addEventListener("click", gameRestarter);
+function gameRestarter() {
+  clickCounter = 0;
+  $selectScoreDiv.innerHTML = clickCounter;
+  setGameArray();
+  createCardSet();
+}
 
 function setEasyDifficulty() {
+  gameRestarter();
   cardsQuantity = 12;
-  console.log(cardsQuantity);
 }
 function setHardDifficulty() {
+  gameRestarter();
   cardsQuantity = 20;
-  console.log(cardsQuantity);
 }
 // creating game array, randomizing and selecting proper number of game cards
 function setGameArray() {
@@ -23,25 +37,23 @@ function setGameArray() {
   }
   generateRandomizedArray();
 }
-setGameArray();
 
 function generateRandomizedArray() {
-  randomizeArray = arr => arr.sort(() => Math.random() - 0.5);
-  let randomzied = randomizeArray(iconsArray).slice(0, cardsQuantity / 2);
+  arrayRandomizer = arr => arr.sort(() => Math.random() - 0.5);
+  randomziedGameArray = arrayRandomizer(iconsArray).slice(0, cardsQuantity / 2);
   //doubling the size and randomizing again
-  randomzied = randomzied.concat(randomzied);
-  randomzied = randomizeArray(randomzied);
-  console.log(randomzied);
+  randomziedGameArray = randomziedGameArray.concat(randomziedGameArray);
+  randomziedGameArray = arrayRandomizer(randomziedGameArray);
 }
 
-function createCard() {
+function createCard(card) {
   $cardDiv = document.createElement("div");
   $cardDiv.className = "card-component";
-  $cardDiv.setAttribute("data-match", "icon" + dataMatch);
+  $cardDiv.setAttribute("data-match", "icon" + card);
 
   $imgFront = document.createElement("img");
   $imgFront.className = "front-face";
-  $imgFront.src = "images/4.png";
+  $imgFront.src = "images/" + card + ".png";
 
   $imgBack = document.createElement("img");
   $imgBack.className = "back-face";
@@ -52,5 +64,63 @@ function createCard() {
 
   $containerGameDiv.appendChild($cardDiv);
 }
-createCard();
-createCard();
+//takes card element, array of random icons and creates gameboard
+
+function createCardSet() {
+  randomziedGameArray.map(card => {
+    createCard(card);
+  });
+  //select all created cards
+  const $selectCards = document.querySelectorAll(".card-component");
+  $selectCards.forEach(card => card.addEventListener("click", flipCard));
+}
+
+//flipping and matching
+function flipCard() {
+  if (lockBoard) return;
+  if (this === firstCard) return;
+  this.classList.add("toggle-flip");
+  if (!isFlipped) {
+    clickCounter++;
+    $selectScoreDiv.innerHTML = clickCounter;
+    isFlipped = true;
+    firstCard = this;
+  } else {
+    clickCounter++;
+    $selectScoreDiv.innerHTML = clickCounter;
+    secondCard = this;
+    verifyCardMatch();
+  }
+}
+
+function verifyCardMatch() {
+  let cardsMatched = firstCard.dataset.match === secondCard.dataset.match;
+  cardsMatched ? disableCardListeners() || matchCounter++ : unflip();
+  if (matchCounter === cardsQuantity / 2) {
+    alert(`Bravo! U won in ${clickCounter} Clicks!`);
+    matchCounter = 0;
+    clickCounter = 0;
+  }
+}
+function disableCardListeners() {
+  firstCard.removeEventListener("click", flipCard);
+  secondCard.removeEventListener("click", flipCard);
+  resetCardsStatus();
+}
+function unflip() {
+  lockBoard = true;
+  setTimeout(() => {
+    firstCard.classList.remove("toggle-flip");
+    secondCard.classList.remove("toggle-flip");
+    resetCardsStatus();
+  }, 500);
+}
+function resetCardsStatus() {
+  lockBoard = false;
+  isFlipped = false;
+  firstCard = null;
+  secondCard = null;
+}
+// artificial triggering for refactoring purposes
+// setGameArray();
+// createCardSet();

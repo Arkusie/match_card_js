@@ -108,6 +108,7 @@ body {
 
 #diffBoard {
   margin: 0 auto;
+  margin-bottom: 10px;
   margin-top: 20px;
   width: 50%;
 }
