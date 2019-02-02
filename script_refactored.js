@@ -12,10 +12,11 @@ let clickCounter = 0;
 const $easyGameButton = document.getElementById("easyDiv").addEventListener("click", setEasyDifficulty);
 const $hardcoreGameButton = document.getElementById("hardDiv").addEventListener("click", setHardDifficulty);
 const $containerGameDiv = document.getElementById("container-game");
-// const $selectResetButton = document.getElementById("resetButton");
 const $selectScoreDiv = document.getElementById("scoreDiv");
-// $selectResetButton.addEventListener("click", gameRestarter);
+
+//having trouble with removing elements
 function gameRestarter() {
+  document.querySelectorAll(".card-component").forEach(el => el.remove());
   clickCounter = 0;
   $selectScoreDiv.innerHTML = clickCounter;
   setGameArray();
@@ -23,12 +24,12 @@ function gameRestarter() {
 }
 
 function setEasyDifficulty() {
-  gameRestarter();
   cardsQuantity = 12;
+  gameRestarter();
 }
 function setHardDifficulty() {
-  gameRestarter();
   cardsQuantity = 20;
+  gameRestarter();
 }
 // creating game array, randomizing and selecting proper number of game cards
 function setGameArray() {
@@ -65,7 +66,6 @@ function createCard(card) {
   $containerGameDiv.appendChild($cardDiv);
 }
 //takes card element, array of random icons and creates gameboard
-
 function createCardSet() {
   randomziedGameArray.map(card => {
     createCard(card);
@@ -74,7 +74,6 @@ function createCardSet() {
   const $selectCards = document.querySelectorAll(".card-component");
   $selectCards.forEach(card => card.addEventListener("click", flipCard));
 }
-
 //flipping and matching
 function flipCard() {
   if (lockBoard) return;
