@@ -31,12 +31,20 @@ body {
 
 #container {
   width: 600px;
+
   margin: auto;
 }
-
+#infoDiv {
+  margin: 0 auto;
+  text-align: center;
+  background-image: url(images/front_face.png);
+  background-repeat: no-repeat;
+  background-size: 40%;
+  animation: Gradient 3s ease infinite;
+}
 #container-game {
   margin: auto;
-  min-height: 60vh;
+  min-height: 50vh;
   /* width: 700px;
   height: 100vh;
   max-height: 540px; */
@@ -111,7 +119,7 @@ body {
   margin: 0 auto;
   margin-bottom: 10px;
   margin-top: 20px;
-  width: 50%;
+  width: 80%;
 }
 
 #scoreBoard {
@@ -125,7 +133,7 @@ body {
 #scoreTime {
   margin: 0 auto;
   display: inline-block;
-  width: 48%;
+  width: 45%;
   height: 40px;
   padding: 8px 0;
   text-align: center;

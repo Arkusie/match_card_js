@@ -9,20 +9,23 @@ let lockBoard = false;
 let matchCounter = 0;
 let clickCounter = 0;
 
-const $easyGameButton = document.getElementById("easyDiv").addEventListener("click", setEasyDifficulty);
 const $hardcoreGameButton = document.getElementById("hardDiv").addEventListener("click", setHardDifficulty);
+const $easyGameButton = document.getElementById("easyDiv").addEventListener("click", setEasyDifficulty);
 const $containerGameDiv = document.getElementById("container-game");
 const $selectScoreDiv = document.getElementById("scoreDiv");
+const $infoDiv = document.getElementById("infoDiv");
 
 //having trouble with removing elements
 function gameRestarter() {
-  document.querySelectorAll(".card-component").forEach(el => el.remove());
+  iconsArray = [];
   clickCounter = 0;
+  matchCounter = 0;
   $selectScoreDiv.innerHTML = clickCounter;
+  $infoDiv.style.display = "none";
+  document.querySelectorAll(".card-component").forEach(el => el.remove());
   setGameArray();
   createCardSet();
 }
-
 function setEasyDifficulty() {
   cardsQuantity = 12;
   gameRestarter();
@@ -31,6 +34,7 @@ function setHardDifficulty() {
   cardsQuantity = 20;
   gameRestarter();
 }
+
 // creating game array, randomizing and selecting proper number of game cards
 function setGameArray() {
   for (i = 1; i < iconsQUantity + 1; i++) {
@@ -45,6 +49,7 @@ function generateRandomizedArray() {
   //doubling the size and randomizing again
   randomziedGameArray = randomziedGameArray.concat(randomziedGameArray);
   randomziedGameArray = arrayRandomizer(randomziedGameArray);
+  console.log(randomziedGameArray);
 }
 
 function createCard(card) {
@@ -120,6 +125,3 @@ function resetCardsStatus() {
   firstCard = null;
   secondCard = null;
 }
-// artificial triggering for refactoring purposes
-// setGameArray();
-// createCardSet();
