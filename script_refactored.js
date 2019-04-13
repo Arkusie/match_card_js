@@ -1,6 +1,6 @@
 function main() {
   // default game values;
-  let cardsQuantity;
+  let cardsQuantity = 12;
   let iconsQUantity = 36; // amount of icons in the folder
   let iconsArray = [];
   let randomziedGameArray = [];
@@ -10,13 +10,18 @@ function main() {
   let matchCounter = 0;
   let clickCounter = 0;
 
-  const $hardcoreGameButton = document.getElementById("hardDiv").addEventListener("click", setHardDifficulty);
-  const $easyGameButton = document.getElementById("easyDiv").addEventListener("click", setEasyDifficulty);
+  const $hardcoreGameButton = document
+    .getElementById("hardDiv")
+    .addEventListener("click", increaseDiff);
+  const $easyGameButton = document.getElementById("easyDiv");
+  $easyGameButton.addEventListener("click", decreaseDiff);
+  const startGameBtn = document.getElementById("startDiv");
+
+  startGameBtn.addEventListener("click", gameRestarter);
   const $containerGameDiv = document.getElementById("container-game");
   const $selectScoreDiv = document.getElementById("scoreDiv");
   const $infoDiv = document.getElementById("infoDiv");
 
-  //having trouble with removing elements
   function gameRestarter() {
     iconsArray = [];
     clickCounter = 0;
@@ -27,13 +32,22 @@ function main() {
     setGameArray();
     createCardSet();
   }
-  function setEasyDifficulty() {
-    cardsQuantity = 12;
-    gameRestarter();
+  console.log($easyGameButton.innerHTML);
+  function decreaseDiff() {
+    if (cardsQuantity > 4) {
+      cardsQuantity -= 4;
+      startGameBtn.innerHTML = `start!  (${cardsQuantity})`;
+    } else {
+      return;
+    }
   }
-  function setHardDifficulty() {
-    cardsQuantity = 20;
-    gameRestarter();
+  function increaseDiff() {
+    if (cardsQuantity < 36) {
+      cardsQuantity += 4;
+      startGameBtn.innerHTML = `start!  (${cardsQuantity})`;
+    } else {
+      return;
+    }
   }
 
   // creating game array, randomizing and selecting proper number of game cards
@@ -71,12 +85,14 @@ function main() {
 
     $containerGameDiv.appendChild($cardDiv);
   }
+  // porownac poprzez klasy, np if toggle flip to nie zwiekszaj countera
   //takes card element, array of random icons and creates gameboard
   function createCardSet() {
     randomziedGameArray.map(card => {
       createCard(card);
     });
     //select all created cards
+    //
     const $selectCards = document.querySelectorAll(".card-component");
     $selectCards.forEach(card => card.addEventListener("click", flipCard));
   }
